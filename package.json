@@ -1,13 +1,13 @@
 {
-  "name": "newman-reporter-allure",
+  "name": "newman-reporter-allure-ii",
   "version": "1.0.7",
-  "description": "newman reporter for Allure",
+  "description": "newman reporter for Allure v II",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "allure",
+    "allure2",
     "newman",
     "reporter",
     "reports",
@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ervirendersingh/newman-reporter-allure.git"
+    "url": "https://github.com/wrmlopes/newman-reporter-allure"
   },
   "author": "Virender",
   "license": "ISC",

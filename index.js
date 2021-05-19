@@ -18,8 +18,19 @@ class AllureReporter {
         this.allure_runtime = new AllureRuntime(config);
         this.reporterOptions = reporterOptions;
         this.options = options;
+        this.cenarioId = this.getValorDeGlobals('cenarioId');
         const events = 'start beforeIteration iteration beforeItem item beforePrerequest prerequest beforeScript script beforeRequest request beforeTest test beforeAssertion assertion console exception beforeDone done'.split(' ');
         events.forEach((e) => { if (typeof this[e] == 'function') emitter.on(e, (err, args) => this[e](err, args)) });
+    }
+
+    /**
+     * Recupera de options.globals uma variável que deve ter sido enviada pelo backend
+     * @param {*} nomeVar 
+     * @returns 
+     */
+    getValorDeGlobals(nomeVar){
+        const valor = this.options.globals.values.find(vv => vv.key === nomeVar).value;
+        return valor;
     }
 
     get currentSuite() {
@@ -168,10 +179,9 @@ class AllureReporter {
             testFullName = pm_item.name;
             const rndStr = Math.random().toString(36).substr(2, 5);
             testFullName = testFullName + '_' + rndStr;
-            allure_test.historyId = createHash("md5")
-                .update(testFullName)
-                .digest("hex");
     
+            allure_test.historyId = this.cenarioId;
+
             allure_test.stage = Stage.RUNNING;
             var itemGroup = args.item.parent();
             var root = !itemGroup || (itemGroup === this.options.collection);
@@ -196,12 +206,16 @@ class AllureReporter {
                 } else {
                     parentSuite = fullName;
                 }
+                allure_test.fullName = fullName;
+                // allure_test.addLabel(LabelName.FEATURE, parentSuite); //Projeto
+                // allure_test.addLabel(LabelName.SUITE, parentSuite); //Projeto
+                // allure_test.addLabel(LabelName.PACKAGE, parentSuite); //Projeto
             }
     
             if (parentSuite !== undefined) {
                 parentSuite = parentSuite.charAt(0).toUpperCase() + parentSuite.slice(1);
                 allure_test.addLabel(LabelName.PARENT_SUITE, parentSuite);
-                allure_test.addLabel(LabelName.FEATURE, parentSuite);
+                allure_test.addLabel(LabelName.PACKAGE, parentSuite);
             }
             if (suite !== undefined) {
                 suite = suite.charAt(0).toUpperCase() + suite.slice(1);
@@ -217,7 +231,8 @@ class AllureReporter {
                     //     captalizedSubSuites.push(subSuites[i].charAt(0).toUpperCase() + subSuites[i].slice(1))
                     // }
                     // allure_test.addLabel(LabelName.SUB_SUITE, captalizedSubSuites.join(" > "));
-                    allure_test.addLabel(LabelName.STORY, subSuites.join(" > "));
+                    allure_test.addLabel(LabelName.STORY, suite + ' - ' + subSuites.join(" > ")); // suite + cenario
+                    allure_test.addLabel(LabelName.TEST_CLASS, subSuites.join(" > ")); // cenario
                 }
             }
     

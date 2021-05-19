@@ -1,7 +1,7 @@
 {
-  "name": "newman-reporter-allure-ii",
+  "name": "@wrmlopes/newman-reporter-allure",
   "version": "1.0.7",
-  "description": "newman reporter for Allure v II",
+  "description": "newman reporter for Allure to FTABB framework",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

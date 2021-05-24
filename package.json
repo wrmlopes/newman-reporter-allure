@@ -1,6 +1,6 @@
 {
   "name": "@wrmlopes/newman-reporter-allure",
-  "version": "1.0.7",
+  "version": "1.0.0",
   "description": "newman reporter for Allure to FTABB framework",
   "main": "index.js",
   "scripts": {

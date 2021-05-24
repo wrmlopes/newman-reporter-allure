@@ -1,11 +1,11 @@
-# @wrmlopes/newman-reporter-allure
+# newman-reporter-allure-ftabb
 A newman reporter to generate a clean and good report using the Allure-js framework adapted for use in a specific framework.
 Generated from the original at
 https://www.npmjs.com/package/newman-reporter-allure
 
 ## Installation
 ```console
-$ npm install -g @wrmlopes/newman-reporter-allure
+$ npm install -g newman-reporter-allure-ftabb
 ```
 
 ## Usage
